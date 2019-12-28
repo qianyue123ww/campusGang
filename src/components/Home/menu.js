@@ -1,7 +1,7 @@
 import screen from '../../utils/common/screen';
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {HOME_MENUINFO} from '../../constants/data';
+// import {HOME_MENUINFO} from '../../constants/data';
 
 export default class RenderMenuInfo extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class RenderMenuInfo extends Component {
   }
   onPress = () => {};
   render() {
-    const data = HOME_MENUINFO;
+    const data = this.props.list;
     let menuItems = data.map((item, i) => (
       <TouchableOpacity onPress={this.onPress} key={i} style={styles.item}>
         <Image source={item.icon} resizeMode="contain" style={styles.icon} />
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: screen.width / 10,
-    height: screen.width / 10,
+    width: screen.width / 12,
+    height: screen.width / 12,
     margin: 5,
   },
 });

@@ -1,16 +1,22 @@
 import React from 'react';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
 import HomePage from '../Home/HomePage';
 import SetAsidePage from '../SetAside/SetAsidePage';
 import MinePage from '../Mine/MinePage';
 import TaskPage from '../Task/TaskPage';
-import {createStackNavigator} from 'react-navigation-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import ArticleContent from '../Home/ArticleContent';
+
+const HomeStack = createStackNavigator({
+  Home: {screen: HomePage},
+  Content: {screen: ArticleContent},
+});
 
 const tabNav = createBottomTabNavigator(
   {
     Home: {
-      screen: createStackNavigator({Home: HomePage}),
+      screen: HomeStack,
       navigationOptions: () => ({
         tabBarLabel: '首页',
         tabBarIcon: ({tintColor}) => (

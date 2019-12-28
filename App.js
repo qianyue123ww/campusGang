@@ -1,3 +1,4 @@
+import React, {Component} from 'react';
 import {AppRegistry} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -5,8 +6,9 @@ import LoginPage from './src/components/Login/LoginPage';
 import RegisterPage from './src/components/Login/RegisterPage';
 import FindAccountPage from './src/components/Login/FindAccountPage';
 import TabNav from './src/components/Tabbar/TabNav';
+import SplashScreen from 'react-native-splash-screen';
 
-const App = createStackNavigator(
+const nav = createStackNavigator(
   {
     Login: LoginPage,
     Register: RegisterPage,
@@ -22,6 +24,17 @@ const App = createStackNavigator(
     initialRouteName: 'Main',
   },
 );
-export default createAppContainer(App);
+const AppContainer = createAppContainer(nav);
+export default class CampusGang extends Component {
+  componentDidMount() {
+    // setTimeout(() => {
+    //   SplashScreen.hide(); //隐藏启动屏
+    // }, 1000);
+    SplashScreen.hide(); //隐藏启动屏
+  }
+  render() {
+    return <AppContainer />;
+  }
+}
 
-AppRegistry.registerComponent('campusGang', () => createAppContainer);
+AppRegistry.registerComponent('campusGang', () => CampusGang);
