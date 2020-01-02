@@ -6,12 +6,12 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Screen from '../../utils/common/screen';
 import RenderMenuInfo from './menu';
-import {HOME_MENUINFO} from '../../constants/data';
+import {HOME_MENUINFO, titleBar} from '../../constants/data';
+import {color, fontSize} from '../../utils/common/style';
 
 import {getArticles} from '../../api/api';
 
@@ -81,9 +81,22 @@ export default class HomePage extends Component {
         onPress={() => {
           navigation.push('Content', {articleId: item.id});
         }}>
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.title}>
+          <Text>{title}</Text>
+          <Text style={styles.time}>
+            {new Date().toLocaleDateString().replace(/\//g, '-')}
+          </Text>
+        </View>
         <Image style={styles.artileImg} source={{uri: img}} />
       </TouchableOpacity>
+    );
+  }
+  renderTitleBar() {
+    return (
+      <View style={styles.titleBar}>
+        <Image source={titleBar.icon} style={styles.barICon} />
+        <Text style={styles.barColor}>热门推荐</Text>
+      </View>
     );
   }
   render() {
@@ -92,36 +105,42 @@ export default class HomePage extends Component {
       <View style={{flex: 1}}>
         {this.renderCarousel()}
         <View>
-          <RenderMenuInfo list={this.state.menuList} />
+          <RenderMenuInfo
+            list={this.state.menuList}
+            onPress={screen => {
+              navigation.push(screen);
+            }}
+          />
         </View>
         <FlatList
           data={this.state.artiles}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => this.renderArticlesItem(item, navigation)}
           ItemSeparatorComponent={ItemDivideComponent}
+          ListHeaderComponent={this.renderTitleBar}
+          style={{margin: 20}}
         />
       </View>
     );
   }
 }
 function ItemDivideComponent() {
-  return <View style={{height: 1, backgroundColor: '#ccc'}} />;
+  return <View style={{height: 1, backgroundColor: color.gray}} />;
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 180,
+    height: 220,
     backgroundColor: 'transparent',
     marginBottom: -20,
   },
   slide: {
     flex: 1,
     alignItems: 'center',
-    height: 160,
   },
   image: {
     width: Screen.width,
-    height: 160,
+    height: 200,
   },
   activeDot: {
     backgroundColor: '#fff',
@@ -131,17 +150,43 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     marginRight: 7,
   },
+  titleBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: color.gray,
+  },
+  barColor: {
+    color: color.red,
+    fontWeight: 'bold',
+    alignSelf: 'flex-end',
+  },
+  barICon: {
+    width: 22,
+    height: 22,
+    marginRight: 6,
+  },
   listItem: {
     flex: 1,
     flexDirection: 'row',
-    padding: 15,
+    paddingTop: 10,
+    height: 80,
+  },
+  time: {
+    color: color.deepGray,
+    fontSize: fontSize.small,
   },
   title: {
     flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'space-around',
   },
   artileImg: {
     width: 60,
     height: 60,
     marginLeft: 10,
+    borderRadius: 3,
   },
 });

@@ -8,10 +8,22 @@ import TaskPage from '../Task/TaskPage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ArticleContent from '../Home/ArticleContent';
 
-const HomeStack = createStackNavigator({
-  Home: {screen: HomePage},
-  Content: {screen: ArticleContent},
-});
+import SignInPage from '../Home/menuComponent/SignInPage';
+import TimetablePage from '../Home/menuComponent/TimetablePage';
+import WeatherPage from '../Home/menuComponent/WeatherPage';
+
+const HomeStack = createStackNavigator(
+  {
+    Home: {screen: HomePage},
+    Content: {screen: ArticleContent},
+    SignIn: {screen: SignInPage},
+    Timetable: {screen: TimetablePage},
+    Weather: {screen: WeatherPage},
+  },
+  {
+    initialRouteName: 'Home',
+  },
+);
 
 const tabNav = createBottomTabNavigator(
   {

@@ -11,7 +11,12 @@ export default class RenderMenuInfo extends Component {
   render() {
     const data = this.props.list;
     let menuItems = data.map((item, i) => (
-      <TouchableOpacity onPress={this.onPress} key={i} style={styles.item}>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.onPress(item.screen);
+        }}
+        key={i}
+        style={styles.item}>
         <Image source={item.icon} resizeMode="contain" style={styles.icon} />
         <Text>{item.title}</Text>
       </TouchableOpacity>

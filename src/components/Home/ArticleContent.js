@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {View, StyleSheet,} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {getArticleContent, getContentStyle, getArticles} from '../../api/api';
 
 export default class ArtcleContent extends Component {
-  // static navigationOptions = {
-  //   headerTitle instead of title
-  //   header: null,
-  // };
+  static navigationOptions = {
+    title: '热门推荐',
+  };
   constructor(props) {
     super(props);
     this.state = {html: ''};
@@ -35,7 +34,6 @@ export default class ArtcleContent extends Component {
     });
   }
   render() {
-    console.log(this.state.html);
     return (
       <View style={styles.container}>
         <WebView
