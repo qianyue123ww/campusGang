@@ -75,15 +75,14 @@ export default class SignInPage extends Component {
           key: 'signIn',
         })
         .then(res => {
-          res = JSON.parse(res);
           console.log('找到了', res);
           if (Object.keys(this.state.markedDates).length === 0) {
             this.setState({
-              markedDates: res.markedDates,
+              markedDates: JSON.parse(res.markedDates),
             });
           }
         })
-        .catch(() => console.log('没找到'));
+        .catch(err => console.log('没找到', err));
   }
   UNSAFE_componentWillMount() {
     let {storage} = global;
@@ -113,7 +112,7 @@ export default class SignInPage extends Component {
     return marked;
   }
   render() {
-    console.log(this.state.markedDates)
+    console.log(this.state.markedDates);
     return (
       <View style={styles.container}>
         <View style={[styles.calWrap, styles.shadow2]}>

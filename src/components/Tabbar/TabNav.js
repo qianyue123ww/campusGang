@@ -29,12 +29,15 @@ const tabNav = createBottomTabNavigator(
   {
     Home: {
       screen: HomeStack,
-      navigationOptions: () => ({
-        tabBarLabel: '首页',
-        tabBarIcon: ({tintColor}) => (
-          <AntDesign name={'home'} size={25} color={tintColor} />
-        ),
-      }),
+      navigationOptions: ({navigation}) => {
+        return {
+          tabBarLabel: '首页',
+          tabBarIcon: ({tintColor}) => (
+            <AntDesign name={'home'} size={25} color={tintColor} />
+          ),
+          tabBarVisible: navigation.state.index > 0 ? false : true,
+        };
+      },
     },
     Task: {
       screen: createStackNavigator({Task: TaskPage}),

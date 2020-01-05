@@ -33,3 +33,20 @@ export const Mine_ITEMS = [
 export const titleBar = {
   icon: require('../assets/img/home/bar.png'),
 };
+
+export const weatherComponents = {
+  // 天气头部
+  WEATHER_TYPE_HEADER: 0,
+  // 小时天气
+  WEATHER_TYPE_HOUR_WEATHER: 1,
+  // 每日天气
+  WEATHER_TYPE_DAILY_WEATHER: 2,
+  //空气质量
+  WEATHER_TYPE_AIR_QUALITY: 3,
+  //生活指数
+  WEATHER_TYPE_LIFT_INDEX: 4,
+  //日出和日落
+  WEATHER_TYPE_SUNRISE_AND_SUNSET: 5,
+  //总数
+  WEATHER_TYPE_COUNT: 6,
+};
