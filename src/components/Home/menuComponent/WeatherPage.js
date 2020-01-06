@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   StatusBar,
-  TouchableOpacity,
-  Image,
   ActivityIndicator,
   PermissionsAndroid,
   StyleSheet,
@@ -26,6 +23,8 @@ import DailyWeatherComponent from './weather/DailyWeatherComponent';
 import AirQualityComponent from './weather/AirQualityComponent';
 import LifeIndexComponent from './weather/LifeIndexComponent';
 import SunriseAndSunsetComponent from './weather/SunriseAndSunsetComponent';
+
+import WeatherTarBar from './weather/WeatherTarBar';
 
 const STATUS_BAR_HEIGHT = StatusBar.currentHeight;
 const APP_BAR_HEIGHT = 44;
@@ -121,22 +120,16 @@ export default class SignInPage extends Component {
       searchCity(address).then(res => {
         const [location] = res.data;
         const {cityid, upper, name, prov} = location;
-        // eslint-disable-next-line prettier/prettier
-        const city = this.renderOrUpdataCity(cityid, upper, name, prov, -1, -1, -1, null, -1, true);
-        this.setState(
-          {
-            city: city,
-            // requestLocation: false,
-          },
-          () => {
-            this.getWeatherData();
-          },
-        );
+        this.getWeatherData(cityid, upper, name, prov);
       });
     });
   }
-  getWeatherData() {
-    const {cityId, cityName, district, province} = this.state.city;
+  getWeatherData(cityid, upper, name, prov) {
+    // const {cityId, cityName, district, province} = this.state.city;
+    const cityId = cityid;
+    const cityName = upper;
+    const district = name;
+    const province = prov;
     if (cityId) {
       fetchWeatherData(cityId).then(data => {
         const {forecast15, observe} = data;
@@ -237,12 +230,22 @@ export default class SignInPage extends Component {
         );
     }
   }
+  renderHeaderTarBar() {
+    return (
+      <WeatherTarBar
+        weatherHeaderInfo={this.state.weatherHeaderInfo}
+        city={this.state.city}
+        callback={this.getWeatherData.bind(this)}
+      />
+    );
+  }
   renderWeatherPage() {
     return (
       <FlatList
         data={this.state.dataList}
         renderItem={({item}) => this.renderPartCompents(item)}
         keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={() => this.renderHeaderTarBar()}
       />
     );
   }
@@ -262,7 +265,13 @@ export default class SignInPage extends Component {
               <ActivityIndicator size="large" color="#fff" />
             </View>
           ) : (
-            <View style={styles.container}>{this.renderWeatherPage()}</View>
+            <View style={styles.container}>
+              {/* <WeatherTarBar
+                weatherHeaderInfo={this.state.weatherHeaderInfo}
+                city={this.state.city}
+              /> */}
+              {this.renderWeatherPage()}
+            </View>
           )}
         </View>
       </LinearGradient>

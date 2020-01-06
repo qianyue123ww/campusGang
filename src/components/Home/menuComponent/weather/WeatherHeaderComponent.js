@@ -24,7 +24,12 @@ export default class WeatherHeaderComponent extends Component {
           </View>
         </View>
         <Text style={styles.desc}>
-        {forecast15[1].high + '°/' + forecast15[1].low + '°  体感温度 ' + observe.tigan + '°'}
+          {forecast15[1].high +
+            '°/' +
+            forecast15[1].low +
+            '°  体感温度 ' +
+            observe.tigan +
+            '°'}
         </Text>
       </View>
     );
@@ -34,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 72,
+    paddingTop: 36,
     paddingBottom: 72,
     borderBottomWidth: 0.5,
     borderBottomColor: 'rgba(255, 255, 255, 0.3)',
