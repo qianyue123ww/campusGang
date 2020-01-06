@@ -67,6 +67,12 @@ export default class HomePage extends Component {
               style={styles.image}
             />
           </View>
+          <View style={styles.slide}>
+            <Image
+              source={require('../../assets/img/home/carousel/4.jpg')}
+              style={styles.image}
+            />
+          </View>
         </Swiper>
       </View>
     );
@@ -118,7 +124,7 @@ export default class HomePage extends Component {
           renderItem={({item}) => this.renderArticlesItem(item, navigation)}
           ItemSeparatorComponent={ItemDivideComponent}
           ListHeaderComponent={this.renderTitleBar}
-          style={{margin: 20}}
+          style={{marginLeft: 20, marginRight: 20}}
         />
       </View>
     );

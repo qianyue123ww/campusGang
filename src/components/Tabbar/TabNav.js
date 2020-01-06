@@ -21,7 +21,7 @@ const HomeStack = createStackNavigator(
     Weather: {screen: WeatherPage},
   },
   {
-    initialRouteName: 'Weather',
+    initialRouteName: 'Home',
   },
 );
 
