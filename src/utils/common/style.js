@@ -10,6 +10,7 @@ export const color = {
   white: '#fff',
   black: '#333',
   deepGray: '#CCCCCC',
+  simpleGray: '#c4c4c4',
   red: '#a7324a',
   pink: '#FFC1B5',
 };

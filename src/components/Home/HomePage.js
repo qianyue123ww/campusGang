@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Screen from '../../utils/common/screen';
@@ -118,14 +119,21 @@ export default class HomePage extends Component {
             }}
           />
         </View>
-        <FlatList
-          data={this.state.artiles}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => this.renderArticlesItem(item, navigation)}
-          ItemSeparatorComponent={ItemDivideComponent}
-          ListHeaderComponent={this.renderTitleBar}
-          style={{marginLeft: 20, marginRight: 20}}
-        />
+        {this.state.artiles.length ? (
+          <FlatList
+            data={this.state.artiles}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => this.renderArticlesItem(item, navigation)}
+            ItemSeparatorComponent={ItemDivideComponent}
+            ListHeaderComponent={this.renderTitleBar}
+            style={{marginLeft: 20, marginRight: 20}}
+          />
+        ) : (
+          <View style={styles.wrapIndicator}>
+            <ActivityIndicator size="large" color="gray" />
+            <Text>正在加载中，请耐心等待~</Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -194,5 +202,10 @@ const styles = StyleSheet.create({
     height: 60,
     marginLeft: 10,
     borderRadius: 3,
+  },
+  wrapIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

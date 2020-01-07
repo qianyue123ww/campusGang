@@ -23,7 +23,7 @@ const nav = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Login',
   },
 );
 const AppContainer = createAppContainer(nav);
