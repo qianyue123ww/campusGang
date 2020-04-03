@@ -6,14 +6,14 @@ export const HOME_MENUINFO = [
     icon: require('../assets/img/home/signIn.png'),
   },
   {
-    title: '天气',
-    screen: 'Weather',
-    icon: require('../assets/img/home/weather.png'),
-  },
-  {
     title: '课表',
     screen: 'Timetable',
     icon: require('../assets/img/home/timetable.png'),
+  },
+  {
+    title: '天气',
+    screen: 'Weather',
+    icon: require('../assets/img/home/weather.png'),
   },
 
   // {title: '待定', screen: '', icon: require('../assets/img/home/planet.png')},

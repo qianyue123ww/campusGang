@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {color} from '../../utils/common/style';
+import {color, fontSize} from '../../utils/common/style';
+
+import {saveUserInfo, checkUserInfo} from '../../api/api';
 
 export default class Login extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -18,6 +20,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isSignIn: true,
       name: '',
       password: '',
     };
@@ -35,11 +38,41 @@ export default class Login extends Component {
     }
     return bool;
   }
+  changeStatus = () => {
+    this.setState(preState => ({
+      isSignIn: !preState.isSignIn,
+    }));
+  };
+  register = data => {
+    saveUserInfo(data).then(res => console.log(res));
+  };
+  signIn = data => {
+    checkUserInfo(data).then(res => {
+      if (res.mes === 'success') {
+        console.log('登陆成功');
+        this.props.navigation.push('Main');
+      } else {
+        console.log('登陆失败');
+      }
+    });
+  };
+  submit = () => {
+    const data = {
+      username: this.state.name,
+      password: this.state.password,
+    };
+    this.state.isSignIn ? this.signIn(data) : this.register(data);
+  };
   render() {
     return (
       <LinearGradient
         colors={['#FFF68F', '#FFD700', '#FFA500']}
         style={styles.container}>
+        <TouchableOpacity style={styles.register} onPress={this.changeStatus}>
+          <Text style={styles.registerText}>
+            {this.state.isSignIn ? '注册' : '登录'}
+          </Text>
+        </TouchableOpacity>
         <View>
           <View style={styles.iconWrap}>
             <Image
@@ -57,18 +90,14 @@ export default class Login extends Component {
           <TextInput
             style={[styles.input, styles.passWord]}
             placeholder="密码"
+            secureTextEntry={true}
             placeholderTextColor={color.simpleGray}
             onChangeText={password => this.setState({password})}
           />
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              const signIn = this.check();
-              if (signIn) {
-                this.props.navigation.navigate('Main');
-              }
-            }}>
-            <Text style={styles.btnTxt}>登录</Text>
+          <TouchableOpacity style={styles.btn} onPress={this.submit}>
+            <Text style={styles.btnTxt}>
+              {this.state.isSignIn ? '登录' : '注册'}
+            </Text>
           </TouchableOpacity>
         </View>
       </LinearGradient>
@@ -133,5 +162,18 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     color: color.white,
+  },
+  register: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    margin: 20,
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: '#FF7F24',
+  },
+  registerText: {
+    color: color.white,
+    fontSize: fontSize.normal,
   },
 });

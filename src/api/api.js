@@ -67,3 +67,33 @@ export function fetchHotCity() {
     })
     .catch(err => console.log(err));
 }
+
+//本地数据库请求
+//要用本地服务器真实的ip地址---ipv4地址
+const localUrl = 'http://192.168.201.2:3000';
+
+export function saveUserInfo(data) {
+  return fetch(`${localUrl}/register`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+    body: JSON.stringify(data),
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
+
+export function checkUserInfo(data) {
+  return fetch(`${localUrl}/signin  `, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+    body: JSON.stringify(data),
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}
