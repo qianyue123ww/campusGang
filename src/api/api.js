@@ -97,3 +97,33 @@ export function checkUserInfo(data) {
     .then(res => res.json())
     .catch(err => console.log(err));
 }
+
+export function getTimetable(id) {
+  return (
+    fetch(`${localUrl}/gettimetable?id=${id}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      //这步不能省略
+      .then(resJson => {
+        console.log(resJson, 233);
+        return resJson;
+      })
+      .catch(err => console.log(err))
+  );
+}
+
+export function updateOrSaveTimetable(data) {
+  return fetch(`${localUrl}/updatetimetable`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+    body: JSON.stringify({data}),
+  })
+    .then(res => res.json())
+    .catch(err => console.log(err));
+}

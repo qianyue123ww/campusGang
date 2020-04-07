@@ -25,6 +25,9 @@ export default class Login extends Component {
       password: '',
     };
   }
+  // componentDidMount() {
+  //   this.props.navigation.push('Main');
+  // }
   check() {
     const name = 'dw';
     const password = '123456';
@@ -76,7 +79,11 @@ export default class Login extends Component {
         <View>
           <View style={styles.iconWrap}>
             <Image
-              source={require('../../assets/img/signIn/signIn.png')}
+              source={
+                this.state.isSignIn
+                  ? require('../../assets/img/signIn/signIn.png')
+                  : require('../../assets/img/signIn/smile.png')
+              }
               style={styles.icon}
             />
           </View>
